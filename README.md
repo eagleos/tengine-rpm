@@ -8,9 +8,19 @@ This is a rpm package based on the official package https://tengine.taobao.org/d
 
 Only the almalinux 9.5-based rpm package is available first, which can also be used for Red Hat Enterprise Linux (RHEL) and its derivatives, such as CentOS Linux and Rocky Linux.
 
+## How to download?
+
+Click on the tengine-3.1.0-1.el9.x86_64.rpm link under Releases on the right to download it directly, or download it from the following URL:
+
+https://tengine-rpm.sourceforge.io
+
 ## How to install?
 
 rpm -Uvh tengine-3.1.0-1.el9.x86_64.rpm
+
+As shown in the image below:
+
+![how to install tengine-rpm](tengine-rpm.png)
 
 ## changelog
 
@@ -27,9 +37,19 @@ Tengine是一个具有一些高级功能的 Nginx 发行版。
 
 目前仅先推出基于almalinux 9.5的rpm包，同样可用于Red Hat Enterprise Linux (RHEL) 及其衍生产品，如CentOS Linux、Rocky Linux。
 
+## 如何下载？
+
+点击右边Releases下面的tengine-3.1.0-1.el9.x86_64.rpm链接直接下载，或者从下面网址下载：
+
+https://tengine-rpm.sourceforge.io
+
 ## 如何安装？
 
 rpm -Uvh tengine-3.1.0-1.el9.x86_64.rpm
+
+如下图所示：
+
+![如何安装tengine-rpm](tengine-rpm.png)
 
 ## 更新日志
 
