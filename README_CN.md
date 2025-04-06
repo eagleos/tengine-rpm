@@ -50,6 +50,74 @@ dnf -y install tengine
 
 ![copr安装tengine-rpm](copr.jpg)
 
+## **安装依赖**
+
+如果您安装时提示类似如下信息：
+```shell
+[root@EagleOS ~]# rpm -ivh tengine-3.1.0-1.el9.x86_64.rpm 
+错误：依赖检测失败：
+        apr >= 1.7.0 被 tengine-3.1.0-1.el9.x86_64 需要
+        apr-util >= 1.6.1 被 tengine-3.1.0-1.el9.x86_64 需要
+        jemalloc >= 5.2.1 被 tengine-3.1.0-1.el9.x86_64 需要
+        jemalloc-devel >= 5.2.1 被 tengine-3.1.0-1.el9.x86_64 需要
+        libluajit-5.1.so.2()(64bit) 被 tengine-3.1.0-1.el9.x86_64 需要
+        libmaxminddb-devel >= 1.5.2 被 tengine-3.1.0-1.el9.x86_64 需要
+        libmodsecurity >= 3.0.12 被 tengine-3.1.0-1.el9.x86_64 需要
+        libmodsecurity-devel >= 3.0.12 被 tengine-3.1.0-1.el9.x86_64 需要
+        libmodsecurity.so.3()(64bit) 被 tengine-3.1.0-1.el9.x86_64 需要
+        lmdb >= 0.9.29 被 tengine-3.1.0-1.el9.x86_64 需要
+        lmdb-devel >= 0.9.29 被 tengine-3.1.0-1.el9.x86_64 需要
+        lua-devel >= 5.4.4 被 tengine-3.1.0-1.el9.x86_64 需要
+        luajit >= 2.1.0 被 tengine-3.1.0-1.el9.x86_64 需要
+        luajit-devel >= 2.1.0 被 tengine-3.1.0-1.el9.x86_64 需要
+        geolite2-city < 20250331 被 tengine-3.1.0-1.el9.x86_64 取代
+        geolite2-country < 20250331 被 tengine-3.1.0-1.el9.x86_64 取代
+```
+请先下载相关依赖包：
+```shell
+wget https://repo.almalinux.org/almalinux/9/AppStream/x86_64/os/Packages/apr-1.7.0-12.el9_3.x86_64.rpm
+wget https://repo.almalinux.org/almalinux/9/AppStream/x86_64/os/Packages/apr-util-1.6.1-23.el9.x86_64.rpm
+wget https://repo.almalinux.org/almalinux/9/AppStream/x86_64/os/Packages/apr-util-bdb-1.6.1-23.el9.x86_64.rpm
+wget https://repo.almalinux.org/almalinux/9/CRB/x86_64/os/Packages/libmaxminddb-devel-1.5.2-4.el9.x86_64.rpm
+wget https://repo.almalinux.org/almalinux/9/CRB/x86_64/os/Packages/lmdb-0.9.29-3.el9.x86_64.rpm
+wget https://repo.almalinux.org/almalinux/9/CRB/x86_64/os/Packages/lmdb-devel-0.9.29-3.el9.x86_64.rpm
+wget https://repo.almalinux.org/almalinux/9/CRB/x86_64/os/Packages/lua-devel-5.4.4-4.el9.x86_64.rpm
+wget https://repo.almalinux.org/almalinux/9/AppStream/x86_64/os/Packages/lua-rpm-macros-1-6.el9.noarch.rpm
+wget https://repo.almalinux.org/almalinux/9/devel/x86_64/os/Packages/lua-static-5.4.4-4.el9.x86_64.rpm
+wget https://repo.almalinux.org/almalinux/9/devel/x86_64/os/Packages/pcre2-static-10.40-6.el9.x86_64.rpm
+wget https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/l/libmodsecurity-3.0.12-1.el9.x86_64.rpm
+wget https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/l/libmodsecurity-devel-3.0.12-1.el9.x86_64.rpm
+wget https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/l/libmodsecurity-static-3.0.12-1.el9.x86_64.rpm
+wget https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/s/ssdeep-libs-2.14.1-11.el9.x86_64.rpm
+wget https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/j/jemalloc-5.2.1-2.el9.x86_64.rpm
+wget https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/j/jemalloc-devel-5.2.1-2.el9.x86_64.rpm
+wget https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/l/luajit-2.1.0-0.23beta3.el9.x86_64.rpm
+wget https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/Packages/l/luajit-devel-2.1.0-0.23beta3.el9.x86_64.rpm
+```
+再安装：
+```shell
+rpm -ivh apr-util-bdb-1.6.1-23.el9.x86_64.rpm apr-1.7.0-12.el9_3.x86_64.rpm apr-util-1.6.1-23.el9.x86_64.rpm
+rpm -ivh libmaxminddb-devel-1.5.2-4.el9.x86_64.rpm
+rpm -ivh lmdb-0.9.29-3.el9.x86_64.rpm lmdb-devel-0.9.29-3.el9.x86_64.rpm
+rpm -ivh lua-rpm-macros-1-6.el9.noarch.rpm lua-devel-5.4.4-4.el9.x86_64.rpm lua-static-5.4.4-4.el9.x86_64.rpm
+rpm -ivh pcre2-static-10.40-6.el9.x86_64.rpm
+rpm -ivh ssdeep-libs-2.14.1-11.el9.x86_64.rpm libmodsecurity-3.0.12-1.el9.x86_64.rpm libmodsecurity-devel-3.0.12-1.el9.x86_64.rpm libmodsecurity-static-3.0.12-1.el9.x86_64.rpm
+rpm -ivh jemalloc-5.2.1-2.el9.x86_64.rpm jemalloc-devel-5.2.1-2.el9.x86_64.rpm
+rpm -ivh luajit-2.1.0-0.23beta3.el9.x86_64.rpm luajit-devel-2.1.0-0.23beta3.el9.x86_64.rpm
+```
+
+## **支持的发行版**
+
+如下发行版测试通过：
+
+Almalinux 9.5 x86_64
+
+兼容如下发行版，未经测试：
+
+Red Hat Enterprise Linux 9.x x86_64
+CentOS Linux 9.x x86_64
+Rocky Linux 9.x x86_64
+
 ## **配置说明**
 
 - nginx配置文件位于：/app/nginx/conf
