@@ -1,69 +1,69 @@
-## **Tengine RPM** [中文](README_CN.md)
+## **Tengine RPM** [English](README.md)
 
-Tengine is a high-performance HTTP and reverse proxy web server originated by Taobao, the largest e-commerce website in Asia. It is based on the Nginx HTTP server and has many advanced features. Tengine has proven to be very stable and efficient on some of the top 100 websites in the world, including Taobao.com, Tmall.com, Youku, AliExpress and Alibaba Cloud.
+Tengine是亚洲最大的电子商务网站淘宝网推出的高性能的HTTP和反向代理web服务器。它基于 Nginx HTTP 服务器，拥有许多高级功能。事实证明，Tengine 在淘宝网、天猫、优酷、阿里速卖通和阿里云等世界前100强网站上非常稳定、高效。
 
-In short, Tengine is a distribution of Nginx with some advanced features.Tengine does not provide official RPM packages, here to provide unofficial optimized compilation and integration of LuaJIT, ModSecurity, geoip2, and other commonly used modules of the Tengine RPM packages, to facilitate the user to quickly install and configure the web server on the target server.
+简言之，Tengine是一个具有一些高级功能的 Nginx 发行版。Tengine官方没有提供RPM包，这里提供非官方的经过优化编译并集成LuaJIT、ModSecurity、geoip2等多种常用模块的Tengine RPM包，方便用户在目标服务器上快速安装配置web服务器。
 
-This is a rpm package based on the official package https://tengine.taobao.org/download/tengine-3.1.0.tar.gz, which is easy to install and use, you can download and install it for free.
+这是基于官方包https://tengine.taobao.org/download/tengine-3.1.0.tar.gz 制作的rpm包，您可免费下载并安装使用。
 
-Only the almalinux 9.5-based rpm package is available first, which can also be used for Red Hat Enterprise Linux (RHEL) and its derivatives, such as CentOS Linux and Rocky Linux.
+目前仅先推出基于almalinux 9.5的rpm包，同样可用于Red Hat Enterprise Linux (RHEL) 及其衍生产品，如CentOS Linux、Rocky Linux。
 
-## **How to download?**
+## **如何下载？**
 
 https://github.com/eagleos/tengine-rpm/releases
 
 https://tengine-rpm.sourceforge.io
 
-## **How to install?**
+## **如何安装？**
 
-- **manual installation**
+- **手工安装**
 
 rpm -Uvh tengine-3.1.0-1.el9.x86_64.rpm
 
-As shown below:
+如：
 ```shell
 [root@EagleOS ~]# rpm -ivh tengine-3.1.0-1.el9.x86_64.rpm
-Error: dependency detection failed:
-geolite2-city < 20250331 replaced by tengine-3.1.0-1.el9.x86_64
-geolite2-country < 20250331 replaced by tengine-3.1.0-1.el9.x86_64
+错误：依赖检测失败：
+geolite2-city < 20250331 被 tengine-3.1.0-1.el9.x86_64 取代
+geolite2-country < 20250331 被 tengine-3.1.0-1.el9.x86_64 取代
 [root@EagleOS ~]# rpm -Uvh tengine-3.1.0-1.el9.x86_64.rpm
 Verifying...                          ################################# [100%]
-Preparing...                          ################################# [100%]
-Upgrading/installing...
+准备中...                          ################################# [100%]
+正在升级/安装...
 1:tengine-3.1.0-1.el9              ################################# [ 33%]
-Cleaning/deleting...
+正在清理/删除...
 2:geolite2-country-20191217-6.el9  ################################# [ 67%]
 3:geolite2-city-20191217-6.el9     ################################# [100%]
 ```
 
-As shown in the image below:
+如下图所示：
 
-![how to install tengine-rpm](tengine-rpm.png)
+![如何安装tengine-rpm](tengine-rpm.png)
 
-- **Online Installation**
+- **在线安装**
 
 ```shell
 dnf copr enable xmdoor/tengine-rpm
 dnf -y install tengine
 ```
-As shown in the image below:
+如下图所示：
 
-![how to install tengine-rpm using copr](copr.jpg)
+![copr安装tengine-rpm](copr.jpg)
 
-## **Configuration**
+## **配置说明**
 
-- The nginx configuration file is located at: /app/nginx/conf
-- After installation will automatically start nginx service, manual restart service command: systemctl restart nginx, reload configuration command: systemctl reload nginx
-- In the process of installing the rpm package, the number of cpu cores of the target server will be automatically detected, and the nginx configuration will be automatically optimized for the configuration process
-- For the target server default site, access to the offshore server is disabled by default in nginx.conf to save server-related access resources. If you need to open this access, you can change this file by removing the following configuration statement:
+- nginx配置文件位于：/app/nginx/conf
+- 安装后会自动启动nginx服务，手工重启服务命令：systemctl restart nginx，重载配置命令：systemctl reload nginx
+- 安装rpm包过程中，会自动检测目标服务器cpu核数，对nginx配置进行自动优化配置处理
+- 对于目标服务器默认站点，在nginx.conf中对境外服务器默认禁止访问，以节省服务器相关访问资源。您如果需要开放此访问，可更改此文件，删除如下配置语句即可：
 ```shell
   if ($ip_deny) {
   return 503;
   }
 ```
-- Support for lua syntax, the relevant test statements, please see the configuration of nginx.conf, you can modify the relevant configuration for the test
-- vhost.conf is an example of a site configuration that is not loaded by default, but can be modified and started by imitating it.
-- The compilation parameters for this rpm package are as follows:
+- 支持lua语法，相关测试语句请查看nginx.conf中配置，可修改相关配置进行测试
+- vhost.conf为站点配置示例，默认未加载，可仿之修改并启动
+- 本rpm包编译参数如下：
 ```shell
 [root@EagleOS ~]# nginx -V
 Tengine version: Microsoft-IIS/3.1.0
@@ -76,6 +76,6 @@ configure arguments: --prefix=/app/nginx --sbin-path=/usr/sbin/nginx --with-http
 
 ## **FAQ**
 
-- **1.Why use `rpm -Uvh` instead of `rpm -ivh`?**
+- **1.为何使用`rpm -Uvh`而不是`rpm -ivh`？**
 
-A: If the target server has already installed the system default geolite2-city and geolite2-country, the IP database file in it is the database that is too old in 2019, this rpm package contains the IP database file with the same path and name (2025.03.31 maxmind.com official latest database), which will be overwrite the installation, so you need to use `rpm -Uvh` to upgrade the installation.
+答：如果目标服务器已经安装了系统默认的geolite2-city和geolite2-country，则其中的IP数据库文件是2019年过旧的数据库，本rpm包中包含同样路径及名称的IP数据库文件（2025.03.31官方maxmind.com最新数据库），会覆盖安装，所以需要使用`rpm -Uvh`进行升级安装。
