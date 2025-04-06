@@ -115,7 +115,9 @@ Almalinux 9.5 x86_64
 Compatible with the following releases, untested:
 
 Red Hat Enterprise Linux 9.x x86_64
+
 CentOS Linux 9.x x86_64
+
 Rocky Linux 9.x x86_64
 
 ## **Configuration**
