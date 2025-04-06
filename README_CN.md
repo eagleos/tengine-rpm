@@ -115,7 +115,9 @@ Almalinux 9.5 x86_64
 兼容如下发行版，未经测试：
 
 Red Hat Enterprise Linux 9.x x86_64
+
 CentOS Linux 9.x x86_64
+
 Rocky Linux 9.x x86_64
 
 ## **配置说明**
