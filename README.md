@@ -133,6 +133,7 @@ Rocky Linux 9.x x86_64
 ```
 - Support for lua syntax, the relevant test statements, please see the configuration of nginx.conf, you can modify the relevant configuration for the test
 - vhost.conf is an example of a site configuration that is not loaded by default, but can be modified and started by imitating it.
+- The modsecurity anti-attack module, i.e. Web Application Firewall (WAF), is enabled by default in vhost.conf, the configuration file is located at: `/app/nginx/conf/modsecurity`, and the logs are located at: `/app/nginx/logs/modsec_audit.log`
 - The compilation parameters for this rpm package are as follows:
 ```shell
 [root@EagleOS ~]# nginx -V
@@ -149,3 +150,19 @@ configure arguments: --prefix=/app/nginx --sbin-path=/usr/sbin/nginx --with-http
 - **1.Why use `rpm -Uvh` instead of `rpm -ivh`?**
 
 A: If the target server has already installed the system default geolite2-city and geolite2-country, the IP database file in it is the database that is too old in 2019, this rpm package contains the IP database file with the same path and name (2025.03.31 maxmind.com official latest database), which will be overwrite the installation, so you need to use `rpm -Uvh` to upgrade the installation.
+
+## **RPM public key**
+
+- During the production process of this RPM package, the official source code file tengine-3.1.0.tar.gz is verified and signed with an RSA 4096-bit key (the highest strength) to ensure the integrity of the source code. The GPG public key for my chunk is as follows:
+
+https://xmyy.com/keys/eagle-public-key1.asc
+
+https://xmyy.com/keys/eagle-public-key2.asc
+
+https://xmyy.com/keys/eagle-public-key3.asc
+
+- The complete GPG public key after the merge of the above chunks is as follows:
+
+https://xmyy.com/keys/eagle-master-public-key.asc
+
+- My public key includes signature and encryption functions, and you can (optionally) trust and import my public key

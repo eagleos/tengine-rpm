@@ -133,6 +133,7 @@ Rocky Linux 9.x x86_64
 ```
 - 支持lua语法，相关测试语句请查看nginx.conf中配置，可修改相关配置进行测试
 - vhost.conf为站点配置示例，默认未加载，可仿之修改并启动
+- vhost.conf中默认启用了modsecurity防攻击模块，即Web应用程序防火墙 (WAF)，配置文件位于：`/app/nginx/conf/modsecurity`，日志位于：`/app/nginx/logs/modsec_audit.log`
 - 本rpm包编译参数如下：
 ```shell
 [root@EagleOS ~]# nginx -V
@@ -149,3 +150,19 @@ configure arguments: --prefix=/app/nginx --sbin-path=/usr/sbin/nginx --with-http
 - **1.为何使用`rpm -Uvh`而不是`rpm -ivh`？**
 
 答：如果目标服务器已经安装了系统默认的geolite2-city和geolite2-country，则其中的IP数据库文件是2019年过旧的数据库，本rpm包中包含同样路径及名称的IP数据库文件（2025.03.31官方maxmind.com最新数据库），会覆盖安装，所以需要使用`rpm -Uvh`进行升级安装。
+
+## **RPM公钥**
+
+- 本RPM包制作过程中，对官方源码文件tengine-3.1.0.tar.gz进行RSA 4096 位密钥（最高强度）验证签名，确保源码完整性。本人分块的 GPG 公钥如下：
+
+https://xmyy.com/keys/eagle-public-key1.asc
+
+https://xmyy.com/keys/eagle-public-key2.asc
+
+https://xmyy.com/keys/eagle-public-key3.asc
+
+- 上述分块合并后完整的 GPG 公钥如下：
+
+https://xmyy.com/keys/eagle-master-public-key.asc
+
+- 本人公钥包含签名和加密功能，各位可以（可选）信任导入本人公钥
